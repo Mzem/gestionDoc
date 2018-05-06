@@ -4,4 +4,4 @@
 	
 ### Exécution
 
-	java -jar target/ProjetPGLP-1.0.jar
+	java -jar target/gestionDoc-1.0.jar

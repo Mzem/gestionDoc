@@ -1,4 +1,4 @@
-package fr.uvsq.pglp;
+package fr.uvsq.gestionDoc;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
