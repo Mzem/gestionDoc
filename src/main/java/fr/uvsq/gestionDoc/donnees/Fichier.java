@@ -102,7 +102,35 @@ public class Fichier
 		}
 	}
 	
+	public static void deleteINBOX(String nomFichier) 
+	{
+		Path pathINBOX = Paths.get("resources/INBOX/"+nomFichier);
+		try {
+			Files.delete(pathINBOX);
+			System.out.println("Suppression du fichier \""+nomFichier+"\" de INBOX...");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean existeINBOX(String nomFichier) 
+	{
+		//On essaye d'ouvrir ce chemin
+		Path pathINBOX = Paths.get("resources/INBOX/"+nomFichier);
+		//Si il n'existe pas on quitte
+		if (!Files.exists(pathINBOX)) {
+			return false;
+		}
+		return true;
+	}
+	
 	public String getNom() { return this.nom; }
+	public String getNomPropre() { return this.nomPropre; }
+	public String getExtension() { return this.extension; }
+	public double getTaille() { return this.taille; }
+	public String getAuteur() { return this.auteur; }
+	public String getDateAjout() { return this.dateAjout; }
+	public String getType() { return this.type; }
 	
 
 }

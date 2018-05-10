@@ -3,8 +3,14 @@ package fr.uvsq.gestionDoc.donnees;
 import java.io.*;
 import java.nio.file.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class FichierFactory
 {
+	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	
 	public static Fichier getFichier(Path path)
 	{
 		//Extraction metadonnées
@@ -25,10 +31,11 @@ public class FichierFactory
 			double taille = Files.size(path);
 			
 			//Auteur
-			String auteur = "";
+			String auteur = System.getProperty("user.name").toString();
 			
 			//Date Ajout
-			String dateAjout = "";
+			Date date = new Date();
+			String dateAjout = dateFormat.format(date).toString();
 			
 			if (extension.equals("txt")) {
 				return new FichierTexte(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "full text");

@@ -11,29 +11,11 @@ import java.sql.Statement;
 
 import java.util.Properties;
 
-public class FichierTexteDAO extends DAO<FichierTexte> 
+public class FichierTexteDAO extends FichierDAO 
 {
 	public FichierTexteDAO(Connection cnx) 
 	{
 		super(cnx);
-		//System.out.println("FichierTexteDAO créé.");
 	}
 
-	public boolean create(FichierTexte obj) {
-		System.out.println("Ajout FichierTexte \""+obj.getNom()+"\" à la BD...");
-		return false;
-	}
-
-	public boolean delete(FichierTexte obj) {
-		return false;
-	}
-
-	public boolean update(FichierTexte obj) {
-		return false;
-	}
-
-	public FichierTexte find(int id) 
-	{
-		return null;
-	}
 }

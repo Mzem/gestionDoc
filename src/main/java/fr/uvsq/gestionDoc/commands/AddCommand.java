@@ -40,7 +40,7 @@ public class AddCommand implements Command
 			else if (fichier instanceof Fichier)
 				System.out.println("Fichier \""+fichier.getNom()+" inconnu non ajouté à la BD...");
 			else
-				System.out.println("\n----- Erreur ----- : problème DAO ajout fichier à la BD.\n");
+				System.err.println("\n----- Erreur ----- : problème DAO ajout fichier à la BD.\n");
 		}
 			
 	}

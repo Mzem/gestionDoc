@@ -31,6 +31,16 @@ public class CommandUI
 				System.err.println("\n----- Erreur ----- : commande add : veuillez spécifier le fichier à ajouter.\n");
 				return null;
 			}
+		}
+        if (entreeSplit[0].equals("remove"))
+        {
+			try {
+				RemoveCommand Remove = new RemoveCommand(entreeSplit[1]);
+				return Remove;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println("\n----- Erreur ----- : commande remove : veuillez spécifier le nom complet du fichier à supprimer.\n");
+				return null;
+			}
 		}/*
 		else if (entreeSplit[0].equals("show"))
         {
