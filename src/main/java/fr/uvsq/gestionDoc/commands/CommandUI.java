@@ -1,4 +1,4 @@
-package fr.uvsq.gestionDoc;
+package fr.uvsq.gestionDoc.commands;
 
 import java.util.Scanner;
 

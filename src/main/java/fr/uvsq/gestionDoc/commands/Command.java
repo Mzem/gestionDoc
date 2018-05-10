@@ -1,4 +1,4 @@
-package fr.uvsq.gestionDoc;
+package fr.uvsq.gestionDoc.commands;
 
 public interface Command {
    void execute();
