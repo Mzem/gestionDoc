@@ -38,16 +38,17 @@ public class FichierFactory
 			String dateAjout = dateFormat.format(date).toString();
 			
 			if (extension.equals("txt")) {
-				return new FichierTexte(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "full text");
+				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "full-text");
 			} else if (extension.equals("pdf")) {
+				//OCR ici
 				String type = "";
-				return new FichierTexte(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, type);
+				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, type);
 			} else if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("gif")) {
-				return new FichierMedia(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "image");
+				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "image");
 			} else if (extension.equals("mp3")) {
-				return new FichierMedia(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "audio");
+				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "audio");
 			} else if (extension.equals("mp4") || extension.equals("avi")) {
-				return new FichierMedia(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "video");
+				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "video");
 			} else 
 				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, "inconnu");
 			

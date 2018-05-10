@@ -2,6 +2,9 @@ package fr.uvsq.gestionDoc.commands;
 
 import java.util.Scanner;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 /**
  * <p>
  * Classe qui gère l'entrée et l'exécution des commandes (moteur de commandes).</p>
@@ -28,7 +31,7 @@ public class CommandUI
 				AddCommand Add = new AddCommand(entreeSplit[1]);
 				return Add;
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.err.println("\n----- Erreur ----- : commande add : veuillez spécifier le fichier à ajouter.\n");
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande add : veuillez spécifier le fichier à ajouter.\n").reset());
 				return null;
 			}
 		}
@@ -38,15 +41,25 @@ public class CommandUI
 				RemoveCommand Remove = new RemoveCommand(entreeSplit[1]);
 				return Remove;
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.err.println("\n----- Erreur ----- : commande remove : veuillez spécifier le nom complet du fichier à supprimer.\n");
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande remove : veuillez spécifier le nom complet du fichier à supprimer.\n").reset());
 				return null;
 			}
-		}/*
+		}
 		else if (entreeSplit[0].equals("show"))
         {
-			RechercheNomCommand R = new RechercheNomCommand(entree);
-			return R;
-		}*/
+			ShowCommand S = new ShowCommand(entreeSplit);
+			return S;
+		}
+		else if (entreeSplit[0].equals("help"))
+        {
+			try {
+				HelpCommand S = new HelpCommand(entreeSplit[1]);
+				return S;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				HelpCommand S = new HelpCommand(null);
+				return S;
+			}
+		}
 		else if (entree.equals("exit"))
 		{
 			ExitCommand E = new ExitCommand();
@@ -63,7 +76,7 @@ public class CommandUI
 	public void affiche(Command C) {
 		System.out.println();
 		if (C == null)
-			System.err.println("\n----- Erreur ----- : commande incorrecte.\n");
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande incorrecte.\n").reset());
 		else
 			C.execute();
 	}

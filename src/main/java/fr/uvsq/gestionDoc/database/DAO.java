@@ -19,7 +19,7 @@ public abstract class DAO<T>
 
 	/**
 	* Méthode pour effacer
-	* @param obj
+	* @param id
 	* @return boolean 
 	*/
 	public abstract boolean delete(String id);
@@ -36,6 +36,6 @@ public abstract class DAO<T>
 	* @param id
 	* @return T
 	*/
-	public abstract T find(int id);
+	public abstract T find(String id);
 
 }

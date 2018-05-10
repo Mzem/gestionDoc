@@ -9,6 +9,9 @@ import java.sql.Statement;
 
 import java.util.Properties;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 
 /**
  * <p>
@@ -52,26 +55,17 @@ public class Database
 			//Si la base de données contient déjà les table on les recrée pas (en capturant l'exception et continuant l'execution)
 			s = cnx.createStatement();
 			try {
-				s.execute("CREATE TABLE FichierTexte (nom varchar(20) NOT NULL, nomPropre varchar(15), extension varchar(5), taille float, dateAjout date, auteur varchar(40), type varchar(20), CONSTRAINT ID_FicT PRIMARY KEY (nom))");
-				System.out.println("\tTable FichierTexte créée");
+				s.execute("CREATE TABLE Fichier (nom varchar(20) NOT NULL, nomPropre varchar(15), extension varchar(5), taille float, auteur varchar(20), dateAjout varchar(25), type varchar(15), CONSTRAINT ID_FicT PRIMARY KEY (nom))");
+				System.out.println("\tTable Fichier créée");
 			} catch (SQLException sqle) {
 				if (sqle.getErrorCode() == 30000)
-					System.out.println("\tTable FichierTexte déjà créée");
-				else
-					throw new SQLException();
-			}
-			try {
-				s.execute("CREATE TABLE FichierMedia (nom varchar(20) NOT NULL, nomPropore varchar(15), extension varchar(5), taille float, dateAjout date, auteur varchar(40), CONSTRAINT ID_FicM PRIMARY KEY (nom))");
-				System.out.println("\tTable FichierMedia créée");
-			} catch (SQLException sqle) {
-				if (sqle.getErrorCode() == 30000)
-					System.out.println("\tTable FichierMedia déjà créée");
+					System.out.println("\tTable Fichier déjà créée");
 				else
 					throw new SQLException();
 			}
 			//Clé étrangère rajoutée pour referencer l'unique repertoire parent qui contient ce repertoire (NULL si aucun repertoire parent)
 			try {
-				s.execute("CREATE TABLE Repertoire (nom varchar(20) NOT NULL, nomRepParent varchar(20), dateCreation date, auteur varchar(40), CONSTRAINT ID_Rep PRIMARY KEY (nom), CONSTRAINT FK_RepParent FOREIGN KEY (nomRepParent) REFERENCES Repertoire(nom))");
+				s.execute("CREATE TABLE Repertoire (nom varchar(20) NOT NULL, nomRepParent varchar(20), auteur varchar(20), dateCreation varchar(25), CONSTRAINT ID_Rep PRIMARY KEY (nom), CONSTRAINT FK_RepParent FOREIGN KEY (nomRepParent) REFERENCES Repertoire(nom))");
 				System.out.println("\tTable Repertoire créée");
 			} catch (SQLException sqle) {
 				if (sqle.getErrorCode() == 30000)
@@ -79,22 +73,13 @@ public class Database
 				else
 					throw new SQLException();
 			}
-			//Tables qui permettent d'assurer qu'un fichier peut etre contenu dans plusieurs repertoires (hiérarchies virtuelles)
+			//Table qui permet d'assurer qu'un fichier peut etre contenu dans plusieurs repertoires (hiérarchies virtuelles)
 			try {
-				s.execute("CREATE TABLE RepertoireFichierT (nomRep varchar(20), nomFicT varchar(5), CONSTRAINT ID_RepFic PRIMARY KEY (nomRep, nomFicT))");
-				System.out.println("\tTable RepertoireFichierT créée");
+				s.execute("CREATE TABLE RepertoireFichier (nomRep varchar(20), nomFic varchar(20), CONSTRAINT ID_RepFic PRIMARY KEY (nomRep, nomFic))");
+				System.out.println("\tTable RepertoireFichier créée");
 			} catch (SQLException sqle) {
 				if (sqle.getErrorCode() == 30000)
-					System.out.println("\tTable RepertoireFichierT déjà créée");
-				else
-					throw new SQLException();
-			}
-			try {
-				s.execute("CREATE TABLE RepertoireFichierM (nomRep varchar(20), nomFicM varchar(5), CONSTRAINT ID_RepFic PRIMARY KEY (nomRep, nomFicM))");
-				System.out.println("\tTable RepertoireFichierM créée");
-			} catch (SQLException sqle) {
-				if (sqle.getErrorCode() == 30000)
-					System.out.println("\tTable RepertoireFichierM déjà créée");
+					System.out.println("\tTable RepertoireFichier déjà créée");
 				else
 					throw new SQLException();
 			}
@@ -131,7 +116,7 @@ public class Database
 			if (cnx != null) {
 				cnx.close();
 				cnx = null;
-				System.out.println("Déconnection...\n");
+				System.out.println(ansi().fgBrightGreen().a("Déconnection...\n").reset());
 			}
 		} catch (SQLException sqle) {
 			printSQLException(sqle);

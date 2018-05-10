@@ -13,21 +13,5 @@ public class DAOFactory
 	public static DAO getFichierDAO(){
 		return new FichierDAO(cnx);
 	}
-   
-	/**
-	* Retourne un objet FichierTexte interagissant avec la base de données.
-	* @return DAO
-	*/
-	public static DAO getFichierTexteDAO(){
-		return new FichierTexteDAO(cnx);
-	}
-   
-	/**
-	* Retourne un objet FichierMedia interagissant avec la base de données.
-	* @return DAO
-	*/
-	public static DAO getFichierMediaDAO(){
-		return new FichierMediaDAO(cnx);
-	}
 
 }

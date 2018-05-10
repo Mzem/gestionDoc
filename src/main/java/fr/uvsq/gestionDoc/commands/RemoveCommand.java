@@ -3,8 +3,8 @@ package fr.uvsq.gestionDoc.commands;
 import fr.uvsq.gestionDoc.database.*;
 import fr.uvsq.gestionDoc.donnees.*;
 
-import java.nio.file.*;
-import java.util.ArrayList;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 
 public class RemoveCommand implements Command 
 {
@@ -24,7 +24,7 @@ public class RemoveCommand implements Command
 			//Efface le fichier de la BD
 			ficDAO.delete(nomFichier);
 		} else
-			System.err.println("\n----- Erreur ----- : le fichier n'existe pas.\n");
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le fichier \""+nomFichier+"\" n'existe pas.\n").reset());
 			
 	}
 }

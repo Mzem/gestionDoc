@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.io.*;
 import java.nio.file.*;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 /**
  * <p>
  * Classe qui modélise les données d'un fichier quelconque et qui gère l'upload à l'INBOX de l'application.</p>
@@ -48,7 +51,7 @@ public class Fichier
 		Path path = Paths.get(cheminFichier);
 		//Si il n'existe pas on quitte
 		if (!Files.exists(path)) {
-			System.err.println("\n----- Erreur ----- : le chemin \""+ cheminFichier +"\" ne corréspond à aucun fichier ou répertoire.\n");
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le chemin \""+ cheminFichier +"\" ne corréspond à aucun fichier ou répertoire.\n").reset());
 			return fichiers;
 		}
 		//Si c'est un répertoire, on ajoute récursivement tous ces sous-fichiers, sinon on l'upload directement
@@ -75,7 +78,7 @@ public class Fichier
 		} catch (IOException e) {
 			FileAlreadyExistsException e1 = new FileAlreadyExistsException(path.getFileName().toString());
 			if (e.getClass() == e1.getClass())
-				System.err.println("\n----- Erreur ----- : le fichier \""+ path.getFileName() +"\" existe déjà dans INBOX.\n");
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le fichier \""+ path.getFileName() +"\" existe déjà dans INBOX.\n").reset());
 			else
 				e.printStackTrace();
 		}

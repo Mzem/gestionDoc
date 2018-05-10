@@ -6,11 +6,13 @@ import fr.uvsq.gestionDoc.donnees.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 public class AddCommand implements Command 
 {
 	private String cheminFichier;
-	private static final DAO<FichierTexte> ficTDAO = DAOFactory.getFichierTexteDAO();
-	private static final DAO<FichierMedia> ficMDAO = DAOFactory.getFichierMediaDAO();
+	private static final DAO<Fichier> ficDAO = DAOFactory.getFichierDAO();;
 	 
 	public AddCommand(String chemin) {
 		cheminFichier = chemin;
@@ -32,16 +34,8 @@ public class AddCommand implements Command
 		for (Path path : paths)
 			fichiers.add(FichierFactory.getFichier(path));
 		//Ajout à la BD
-		for (Fichier fichier : fichiers) {
-			if (fichier instanceof FichierTexte)
-				ficTDAO.create((FichierTexte)fichier);
-			else if (fichier instanceof FichierMedia)
-				ficMDAO.create((FichierMedia)fichier);
-			else if (fichier instanceof Fichier)
-				System.out.println("Fichier \""+fichier.getNom()+" inconnu non ajouté à la BD...");
-			else
-				System.err.println("\n----- Erreur ----- : problème DAO ajout fichier à la BD.\n");
-		}
+		for (Fichier fichier : fichiers)
+			ficDAO.create(fichier);
 			
 	}
 }
