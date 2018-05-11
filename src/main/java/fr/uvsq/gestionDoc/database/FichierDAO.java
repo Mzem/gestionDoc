@@ -149,4 +149,42 @@ public class FichierDAO extends DAO<Fichier>
             }
 		}
 	}
+	
+	public boolean existe(String nomFichier)
+	{
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM FICHIER WHERE nom = '"+nomFichier+"'");
+			
+			if(rs.next())
+				return true;
+			else
+				return false;
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return false;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+	}
 }
