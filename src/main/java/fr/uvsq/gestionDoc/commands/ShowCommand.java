@@ -12,7 +12,7 @@ public class ShowCommand implements Command
 	String auteur = null;
 	String dateAjout = null;
 	String type = null;
-	private static final DAO<Fichier> ficDAO = DAOFactory.getFichierDAO();
+	private static final FichierDAO ficDAO = DAOFactory.getFichierDAO();
 	 
 	public ShowCommand(String[] options) 
 	{
@@ -38,7 +38,7 @@ public class ShowCommand implements Command
 	
 	public void execute() 
 	{
-
+		ficDAO.show(extension, auteur, dateAjout, type);
 	}
 }
 

@@ -11,6 +11,9 @@ import java.sql.Statement;
 
 import java.util.Properties;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 public class FichierDAO extends DAO<Fichier> 
 {
 	public FichierDAO(Connection cnx) 
@@ -82,8 +85,68 @@ public class FichierDAO extends DAO<Fichier>
 		return false;
 	}
 
-	public Fichier find(String nomFichier) 
-	{
+	public Fichier find(String id) {
 		return null;
+	}
+
+	public void show(String extension, String auteur, String dateAjout, String type) 
+	{
+		//Préparation de la requete selon le nombre d'arguments à considérer
+		StringBuilder sString = new StringBuilder("SELECT * FROM Fichier");
+		if (extension != null)
+			sString.append(" WHERE extension='"+extension+"'");
+		if (auteur != null) {
+			if (sString.length() > 25)
+				sString.append(" AND auteur='"+auteur+"'");
+			else
+				sString.append(" WHERE auteur='"+auteur+"'");
+		}
+		if (dateAjout != null) {
+			if (sString.length() > 25)
+				sString.append(" AND dateAjout='"+dateAjout+"'");
+			else
+				sString.append(" WHERE dateAjout='"+dateAjout+"'");
+		}
+		if (type != null) {
+			if (sString.length() > 25)
+				sString.append(" AND type='"+type+"'");
+			else
+				sString.append(" WHERE type='"+type+"'");
+		}
+		sString.append(" ORDER BY nom ASC");
+		
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery(sString.toString());
+			
+			System.out.println(ansi().fgBrightCyan().a("\t"+String.format("%20s", "Fichier")+" : "+String.format("%10s", "Nom")+" | "+String.format("%10s", "Extension")+" | "+String.format("%8s", "Taille")+" | "+String.format("%20s", "Auteur")+" | "+String.format("%14s", "Date d'ajout")+" | "+String.format("%15s", "Type")).reset());
+			while(rs.next()) {
+				System.out.println("\t"+String.format("%20s", rs.getString(1))+" : "+String.format("%10s", rs.getString(2))+" | "+String.format("%10s", rs.getString(3))+" | "+String.format("%8s", rs.getDouble(4))+" | "+String.format("%20s", rs.getString(5))+" | "+String.format("%14s", rs.getString(6))+" | "+String.format("%15s", rs.getString(7))); 
+			}
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
 	}
 }

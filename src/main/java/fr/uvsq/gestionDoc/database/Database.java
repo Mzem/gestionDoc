@@ -55,7 +55,7 @@ public class Database
 			//Si la base de données contient déjà les table on les recrée pas (en capturant l'exception et continuant l'execution)
 			s = cnx.createStatement();
 			try {
-				s.execute("CREATE TABLE Fichier (nom varchar(20) NOT NULL, nomPropre varchar(15), extension varchar(5), taille float, auteur varchar(20), dateAjout varchar(25), type varchar(15), CONSTRAINT ID_FicT PRIMARY KEY (nom))");
+				s.execute("CREATE TABLE Fichier (nom varchar(20) NOT NULL, nomPropre varchar(15), extension varchar(10), taille float, auteur varchar(20), dateAjout varchar(25), type varchar(15), CONSTRAINT ID_FicT PRIMARY KEY (nom))");
 				System.out.println("\tTable Fichier créée");
 			} catch (SQLException sqle) {
 				if (sqle.getErrorCode() == 30000)

@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class FichierFactory
 {
-	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	
 	public static Fichier getFichier(Path path)
 	{

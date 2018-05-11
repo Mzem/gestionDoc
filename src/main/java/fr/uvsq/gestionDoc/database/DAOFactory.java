@@ -10,7 +10,7 @@ public class DAOFactory
 	* Retourne un objet Fichier interagissant avec la base de données.
 	* @return DAO
 	*/
-	public static DAO getFichierDAO(){
+	public static FichierDAO getFichierDAO(){
 		return new FichierDAO(cnx);
 	}
 
