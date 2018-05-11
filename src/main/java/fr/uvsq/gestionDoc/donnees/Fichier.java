@@ -45,6 +45,16 @@ public class Fichier
 	*/
 	public static ArrayList<Path> upload(String cheminFichier)
 	{
+		//On verifie INBOX, sinon on le crée
+		try {
+			Path pathINBOX = Paths.get("resources/INBOX");
+			if (!Files.exists(pathINBOX) || !Files.isDirectory(pathINBOX))
+				Files.createDirectory(pathINBOX);
+		} catch (IOException e) {
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : impossible de créer INBOX.\n").reset());
+			return null;
+		}
+		
 		ArrayList<Path> fichiers = new ArrayList<Path>();
 		
 		//On essaye d'ouvrir ce chemin
