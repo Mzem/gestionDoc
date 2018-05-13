@@ -86,6 +86,7 @@ public class Fichier
 			Files.copy(path, pathINBOX);
 			fichiers.add(pathINBOX);
 		} catch (IOException e) {
+			//if (e instanceof FileAlreadyExistsException)
 			FileAlreadyExistsException e1 = new FileAlreadyExistsException(path.getFileName().toString());
 			if (e.getClass() == e1.getClass())
 				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le fichier \""+ path.getFileName() +"\" existe déjà dans INBOX.\n").reset());
