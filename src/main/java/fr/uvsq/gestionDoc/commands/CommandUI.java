@@ -65,6 +65,16 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("afdir"))
+        {
+			try {
+				AfdirCommand Afdir = new AfdirCommand(entreeSplit[1],entreeSplit[2]);
+				return Afdir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande afdir : veuillez spécifier le nom complet du repertoire et du fichier.\n").reset());
+				return null;
+			}
+		}
 		else if (entreeSplit[0].equals("show"))
         {
 			ShowCommand S = new ShowCommand(entreeSplit);
