@@ -13,5 +13,9 @@ public class DAOFactory
 	public static FichierDAO getFichierDAO(){
 		return new FichierDAO(cnx);
 	}
+	
+	public static RepertoireDAO getRepertoireDAO(){
+		return new RepertoireDAO(cnx);
+	}
 
 }

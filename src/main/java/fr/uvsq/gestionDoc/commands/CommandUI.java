@@ -35,13 +35,33 @@ public class CommandUI
 				return null;
 			}
 		}
-        if (entreeSplit[0].equals("remove"))
+		else if (entreeSplit[0].equals("mkdir"))
+        {
+			try {
+				MkdirCommand Mkdir = new MkdirCommand(entreeSplit[1]);
+				return Mkdir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande mkdir : veuillez spécifier le repertoire à ajouter.\n").reset());
+				return null;
+			}
+		}
+        else if (entreeSplit[0].equals("remove"))
         {
 			try {
 				RemoveCommand Remove = new RemoveCommand(entreeSplit[1]);
 				return Remove;
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande remove : veuillez spécifier le nom complet du fichier à supprimer.\n").reset());
+				return null;
+			}
+		}
+		else if (entreeSplit[0].equals("rmdir"))
+        {
+			try {
+				RmdirCommand Rmdir = new RmdirCommand(entreeSplit[1]);
+				return Rmdir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande rmdir : veuillez spécifier le nom complet du repertoire à supprimer.\n").reset());
 				return null;
 			}
 		}
