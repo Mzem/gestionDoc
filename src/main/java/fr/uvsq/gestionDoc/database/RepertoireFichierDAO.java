@@ -30,6 +30,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
             psInsert.setString(1, RF.getNomRepertoire());
             psInsert.setString(2, RF.getNomFichier());
             psInsert.executeUpdate();
+            //modifier l'affichage (si le nom du fichier ne contiend pas de . mettre repertoire a la place
 			System.out.println("Ajout du fichier \""+RF.getNomFichier()+"\" dans le repertoire \""+RF.getNomRepertoire()+"\" à la BD...");
 		} catch (SQLException sqle) {
             Database.printSQLException(sqle);
@@ -53,6 +54,34 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 	{	
 		return true;
 	}
+	
+	public boolean delete(String nomRepertoire,String nomFichier) 
+	{	
+		PreparedStatement psDelete = null;
+		
+		try {
+			psDelete = Database.getInstance().prepareStatement("DELETE FROM RepertoireFichier WHERE nomRep = ? and nomFic = ?");
+            psDelete.setString(1, nomRepertoire);
+            psDelete.setString(2, nomFichier);
+            psDelete.executeUpdate();
+			System.out.println("Suppression du fichier \""+nomFichier+"\" du repertoire\""+nomRepertoire+"...");
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return false;
+        } finally {
+			//Libération ressources
+			try {	//Requetes
+				if (psDelete != null) {
+					psDelete.close();
+					psDelete = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+				return false;
+			}	
+		}
+		return true;
+	}
 
 	public boolean update(RepertoireFichier obj) {
 		return false;
@@ -62,7 +91,41 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 		return null;
 	}
 
-	public boolean existe(String nomRepertoireFichier){
-			return true;
+	public boolean existe(String nomRepertoire,String nomFichier)
+	{
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM REPERTOIREFICHIER WHERE nomRep = '"+nomRepertoire+"'and nomFic = '"+nomFichier+"'");
+			
+			if(rs.next())
+				return true;
+			else
+				return false;
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return false;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
 	}
 }

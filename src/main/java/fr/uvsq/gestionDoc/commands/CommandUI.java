@@ -55,6 +55,16 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("cd"))
+        {
+			try {
+				CdCommand Cd = new CdCommand(entreeSplit[1]);
+				return Cd;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande cd : veuillez spécifier le nom complet du repertoire.\n").reset());
+				return null;
+			}
+		}
 		else if (entreeSplit[0].equals("rmdir"))
         {
 			try {
@@ -65,6 +75,26 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("rfdir"))
+        {
+			try {
+				RfdirCommand Rfdir = new RfdirCommand(entreeSplit[2],entreeSplit[1]);
+				return Rfdir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande rfdir : veuillez spécifier le nom complet du repertoire à supprimer.\n").reset());
+				return null;
+			}
+		}
+		else if (entreeSplit[0].equals("rrdir"))
+        {
+			try {
+				RrdirCommand Rrdir = new RrdirCommand(entreeSplit[2],entreeSplit[1]);
+				return Rrdir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande rfdir : veuillez spécifier le nom complet du repertoire à supprimer.\n").reset());
+				return null;
+			}
+		}
 		else if (entreeSplit[0].equals("afdir"))
         {
 			try {
@@ -72,6 +102,16 @@ public class CommandUI
 				return Afdir;
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande afdir : veuillez spécifier le nom complet du repertoire et du fichier.\n").reset());
+				return null;
+			}
+		}
+		else if (entreeSplit[0].equals("ardir"))
+        {
+			try {
+				ArdirCommand Ardir = new ArdirCommand(entreeSplit[2],entreeSplit[1]);
+				return Ardir;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande ardir : veuillez spécifier le nom complet des deux repertoires.\n").reset());
 				return null;
 			}
 		}

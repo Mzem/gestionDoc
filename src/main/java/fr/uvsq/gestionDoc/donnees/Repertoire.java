@@ -9,6 +9,7 @@ import static org.fusesource.jansi.Ansi.Color.*;
 
 public class Repertoire
 {
+	protected static String actuel = "thomas";//il nya pas tuple avec null dans RepertoireFichier
 	protected String nom;
 	protected String nomRepParent;
 	protected String auteur;
@@ -33,6 +34,8 @@ public class Repertoire
 	public String getNomRepParent() { return this.nomRepParent; }
 	public String getAuteur() { return this.auteur; }
 	public String getDateCreation() { return this.dateCreation; }
-	
+	public static String getActuel() { return actuel; }
+    public static void setActuel(String actu) { actuel = actu; }
+
 
 }
