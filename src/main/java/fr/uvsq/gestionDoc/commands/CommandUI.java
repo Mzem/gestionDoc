@@ -75,6 +75,16 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("ls"))
+        {
+			try {
+				LsCommand Ls = new LsCommand();
+				return Ls;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande ls \n").reset());
+				return null;
+			}
+		}
 		else if (entreeSplit[0].equals("rfdir"))
         {
 			try {
