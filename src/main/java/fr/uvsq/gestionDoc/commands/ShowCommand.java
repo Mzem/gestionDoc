@@ -12,6 +12,7 @@ public class ShowCommand implements Command
 	String auteur = null;
 	String dateAjout = null;
 	String type = null;
+	String actuel = null;
 	private static final FichierDAO ficDAO = DAOFactory.getFichierDAO();
 	 
 	public ShowCommand(String[] options) 
@@ -32,13 +33,16 @@ public class ShowCommand implements Command
 				else if (option[0].equals("-type")) {
 					type = option[1];
 				}
+			} else if (option.length == 1 && option[0].equals("-rep")) {
+				String[] reps = Repertoire.getActuel().split("/");
+				actuel = reps[reps.length-1];
 			}
 		}
 	}
 	
 	public void execute() 
 	{
-		ficDAO.show(extension, auteur, dateAjout, type);
+		ficDAO.show(extension, auteur, dateAjout, type, actuel);
 	}
 }
 

@@ -1,12 +1,5 @@
 package fr.uvsq.gestionDoc.donnees;
 
-import java.util.ArrayList;
-import java.io.*;
-import java.nio.file.*;
-
-import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
-
 /**
  * <p>
  * Classe qui modélise les données d'un fichier quelconque et qui gère l'upload à l'INBOX de l'application.</p>
@@ -23,7 +16,9 @@ public class RepertoireFichier
 	public RepertoireFichier(String nomR, String nomF)
 	{
 		this.nomFichier = nomF;
-		this.nomRepertoire = nomR;		
+		this.nomRepertoire = nomR;
+		
+		System.out.println("Ajout du fichier \""+nomFichier+"\" dans le répertoire \""+nomRepertoire+"\"...");	
 	}
 	
 	

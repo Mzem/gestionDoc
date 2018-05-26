@@ -86,6 +86,46 @@ public class RepertoireDAO extends DAO<Repertoire>
 		return true;
 	}
 	
+	public void show (String cheminActuel) {
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		String[] reps = cheminActuel.split("/");
+		String actuel = reps[reps.length-1];
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM REPERTOIRE WHERE nomRepParent = '"+actuel+"'");
+			
+			System.out.print("\tRépertoires :   ");
+			while(rs.next()) {
+				System.out.print(ansi().fgMagenta().a(rs.getString(1)).reset().a(" | ")); 
+			}
+			System.out.println();
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+	}
+	
 	public boolean existe(String nomRepertoire)
 	{
 		Statement sSelect = null;
@@ -94,6 +134,44 @@ public class RepertoireDAO extends DAO<Repertoire>
 		try {
 			sSelect = Database.getInstance().createStatement();
 			rs = sSelect.executeQuery("SELECT * FROM Repertoire WHERE nom = '"+nomRepertoire+"'");
+			
+			if(rs.next())
+				return true;
+			else
+				return false;
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return false;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+	}
+	
+	public boolean existeFils(String nomRepertoireParent, String nomRepertoireFils)
+	{
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM Repertoire WHERE nom = '"+nomRepertoireFils+"' AND nomRepParent ='"+nomRepertoireParent+"'");
 			
 			if(rs.next())
 				return true;

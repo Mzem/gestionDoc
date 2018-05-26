@@ -89,12 +89,21 @@ public class FichierDAO extends DAO<Fichier>
 		return null;
 	}
 
-	public void show(String extension, String auteur, String dateAjout, String type) 
+	public void show(String extension, String auteur, String dateAjout, String type, String rep) 
 	{
 		//Préparation de la requete selon le nombre d'arguments à considérer
 		StringBuilder sString = new StringBuilder("SELECT * FROM Fichier");
-		if (extension != null)
-			sString.append(" WHERE extension='"+extension+"'");
+		
+		if (rep != null && !rep.equals("INBOX")) {
+			sString.append(" JOIN RepertoireFichier ON nom = nomFic WHERE nomRep ='"+rep+"'");
+		}
+		
+		if (extension != null) {
+			if (sString.length() > 25)
+				sString.append(" AND extension='"+extension+"'");
+			else
+				sString.append(" WHERE extension='"+extension+"'");
+		}
 		if (auteur != null) {
 			if (sString.length() > 25)
 				sString.append(" AND auteur='"+auteur+"'");
@@ -122,9 +131,9 @@ public class FichierDAO extends DAO<Fichier>
 			sSelect = Database.getInstance().createStatement();
 			rs = sSelect.executeQuery(sString.toString());
 			
-			System.out.println(ansi().fgBrightCyan().a("\t"+String.format("%20s", "Fichier")+" : "+String.format("%10s", "Nom")+" | "+String.format("%10s", "Extension")+" | "+String.format("%8s", "Taille")+" | "+String.format("%20s", "Auteur")+" | "+String.format("%14s", "Date d'ajout")+" | "+String.format("%15s", "Type")).reset());
+			System.out.println(ansi().fgBrightCyan().a("\t"+String.format("%20s", "Fichier")+" : "+String.format("%10s", "Nom")+" | "+String.format("%10s", "Extension")+" | "+String.format("%12s", "Taille (ko)")+" | "+String.format("%15s", "Auteur")+" | "+String.format("%14s", "Date d'ajout")+" | "+String.format("%15s", "Type")).reset());
 			while(rs.next()) {
-				System.out.println("\t"+String.format("%20s", rs.getString(1))+" : "+String.format("%10s", rs.getString(2))+" | "+String.format("%10s", rs.getString(3))+" | "+String.format("%8s", rs.getDouble(4))+" | "+String.format("%20s", rs.getString(5))+" | "+String.format("%14s", rs.getString(6))+" | "+String.format("%15s", rs.getString(7))); 
+				System.out.println("\t"+String.format("%20s", rs.getString(1))+" : "+String.format("%10s", rs.getString(2))+" | "+String.format("%10s", rs.getString(3))+" | "+String.format("%12s", rs.getDouble(4))+" | "+String.format("%15s", rs.getString(5))+" | "+String.format("%14s", rs.getString(6))+" | "+String.format("%15s", rs.getString(7))); 
 			}
 		} catch (SQLException sqle) {
             Database.printSQLException(sqle);

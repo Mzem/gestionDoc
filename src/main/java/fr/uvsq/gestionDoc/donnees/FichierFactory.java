@@ -30,7 +30,7 @@ public class FichierFactory
 			extension = nomSplit[i];
 			
 			//Taille en octets
-			double taille = Files.size(path);
+			double taille = Files.size(path)/1024;
 			
 			//Auteur
 			String auteur = System.getProperty("user.name").toString();

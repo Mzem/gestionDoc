@@ -30,8 +30,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
             psInsert.setString(1, RF.getNomRepertoire());
             psInsert.setString(2, RF.getNomFichier());
             psInsert.executeUpdate();
-            //modifier l'affichage (si le nom du fichier ne contiend pas de . mettre repertoire a la place
-			System.out.println("Ajout du fichier \""+RF.getNomFichier()+"\" dans le repertoire \""+RF.getNomRepertoire()+"\" à la BD...");
+            System.out.println("Ajout du fichier \""+RF.getNomFichier()+"\" dans le repertoire \""+RF.getNomRepertoire()+"\" à la BD...");
 		} catch (SQLException sqle) {
             Database.printSQLException(sqle);
             return false;
@@ -55,7 +54,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 		return true;
 	}
 	
-	public boolean delete(String nomRepertoire,String nomFichier) 
+	public boolean delete(String nomRepertoire, String nomFichier) 
 	{	
 		PreparedStatement psDelete = null;
 		
@@ -86,22 +85,29 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 	public boolean update(RepertoireFichier obj) {
 		return false;
 	}
-
-	public RepertoireFichier find(String actuel) {
+	
+	public RepertoireFichier find(String id) {
+		return null;
+	}
+	
+	public void show (String cheminActuel) {
 		Statement sSelect = null;
 		ResultSet rs = null;
+		
+		String[] reps = cheminActuel.split("/");
+		String actuel = reps[reps.length-1];
 		
 		try {
 			sSelect = Database.getInstance().createStatement();
 			rs = sSelect.executeQuery("SELECT * FROM REPERTOIREFICHIER WHERE nomRep = '"+actuel+"'");
 			
+			System.out.print("\tFichiers :   ");
 			while(rs.next()) {
-				System.out.println("\t"+String.format("%20s", rs.getString(2))); 
+				System.out.print(ansi().fgCyan().a(rs.getString(2)).reset().a(" | ")); 
 			}
-			return null;
+			System.out.println();
 		} catch (SQLException sqle) {
             Database.printSQLException(sqle);
-            return null;
         } finally {
 			//Libération ressources requete
 			try {
@@ -124,7 +130,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 		}
 	}
 
-	public boolean existe(String nomRepertoire,String nomFichier)
+	public boolean existe(String nomRepertoire, String nomFichier)
 	{
 		Statement sSelect = null;
 		ResultSet rs = null;

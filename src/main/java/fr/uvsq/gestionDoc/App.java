@@ -2,6 +2,7 @@ package fr.uvsq.gestionDoc;
 
 import fr.uvsq.gestionDoc.commands.*;
 import fr.uvsq.gestionDoc.database.*;
+import fr.uvsq.gestionDoc.donnees.Repertoire;
 
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -24,7 +25,7 @@ public class App
         CommandUI CUI = new CommandUI();
 		while(true)
 		{
-			System.out.println(ansi().fgBrightBlue().a("\n>>>>>>>>>>>>>  Entrez une commande :").reset());
+			System.out.println(ansi().fgBrightBlue().a("\n"+Repertoire.getActuel()+"  >>>>  Entrez une commande :").reset());
 			CUI.affiche(CUI.nextCommand());
 		}
     }

@@ -16,30 +16,31 @@ public class MkdirCommand implements Command
 {
 	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	private String nomRepertoire;
-	private static final DAO<Repertoire> repDAO = DAOFactory.getRepertoireDAO();
+	private static final RepertoireDAO repDAO = DAOFactory.getRepertoireDAO();
 	 
 	public MkdirCommand(String nom) {
 		nomRepertoire = nom;
 	}
 	
-	/**
-	 * L'execution d'une commande d'ajout d'un fichier/répertoire se passe en 3 étapes :
-	 * - upload du fichier/répertoire à l'INBOX de l'application
-	 * - création d'un objet Fichier pour chaque fichier upload dans INBOX, avec extraction de métadonnées
-	 * - ajout de chaque objet Fichier à la base de données
-	 */
 	public void execute() 
 	{
-			//Auteur
-			String auteur = System.getProperty("user.name").toString();
-			
-			//Date Ajout
-			Date date = new Date();
-   			String dateAjout = dateFormat.format(date).toString();
-
-			Repertoire rep = new Repertoire(nomRepertoire,null,auteur,dateAjout);//auteur a modifier
-		//Ajout à la BD
+		Date date = new Date();
+		
+		//Il faut au préalable s'assurer que le répertoire INBOX existe bien dans la base de données, sinon on le crée
+		if (!repDAO.existe("INBOX")) {
+			Repertoire INBOX = new Repertoire("INBOX", null, System.getProperty("user.name").toString(), dateFormat.format(date).toString());
+			repDAO.create(INBOX);
+		}
+		
+		//Création d'un objet répertoire
+		String[] reps = Repertoire.getActuel().split("/");
+		Repertoire rep = new Repertoire(nomRepertoire, reps[reps.length-1], System.getProperty("user.name").toString(), dateFormat.format(date).toString());
+		
+		//Ajout à la BD	
+		if (!repDAO.existe(nomRepertoire))
 			repDAO.create(rep);
+		else
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : un répertoire nommé \""+nomRepertoire+"\" existe déja.\n").reset());
 			
 	}
 }

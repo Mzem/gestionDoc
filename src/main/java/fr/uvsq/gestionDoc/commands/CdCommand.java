@@ -10,7 +10,6 @@ public class CdCommand implements Command
 {
 	private String nomRepertoire;
 	private static final RepertoireDAO repDAO = DAOFactory.getRepertoireDAO();
-	private static final RepertoireFichierDAO repficDAO = DAOFactory.getRepertoireFichierDAO();
 
 	 
 	public CdCommand(String nom) {
@@ -19,13 +18,22 @@ public class CdCommand implements Command
 	
 	public void execute() 
 	{
-		//c'est un repertoire et il est dans Actuel
-		if ((repDAO.existe(nomRepertoire)) && (repficDAO.existe(Repertoire.getActuel(),nomRepertoire))){
-			Repertoire.setActuel(nomRepertoire);
-			System.err.println(ansi().fgBrightGreen().a("\n vous etes dans le repertoire : \""+nomRepertoire+"\".\n").reset());
-		}
-		else
-			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le repertoire \""+nomRepertoire+"\" n'existe pas.\n").reset());
+		String[] reps = Repertoire.getActuel().split("/");
+		String actuel = reps[reps.length-1];
+		
+		
+		if (nomRepertoire.equals("INBOX"))
+			Repertoire.setActuel("INBOX/");
+		else if (nomRepertoire.equals("..")) {
+			if (reps.length >= 2) {
+				reps[reps.length-1] = "";
+				Repertoire.setActuel(String.join("/",reps));
+			} else
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : il n'existe pas de répertoire parent.\n").reset());
+		} else if ( repDAO.existeFils(actuel, nomRepertoire) ) {
+			Repertoire.setActuel(Repertoire.getActuel()+nomRepertoire+"/");
+		} else
+			System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : le repertoire \""+nomRepertoire+"\" n'est pas un sous-répertoire du répertoire actuel.\n").reset());
 			
 	}
 }

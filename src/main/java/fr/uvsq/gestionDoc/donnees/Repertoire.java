@@ -1,15 +1,8 @@
 package fr.uvsq.gestionDoc.donnees;
 
-import java.util.ArrayList;
-import java.io.*;
-import java.nio.file.*;
-
-import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
-
 public class Repertoire
 {
-	protected static String actuel = "thomas";//il nya pas tuple avec null dans RepertoireFichier
+	protected static String actuel = "INBOX/";
 	protected String nom;
 	protected String nomRepParent;
 	protected String auteur;
@@ -26,7 +19,7 @@ public class Repertoire
 		this.auteur = auteur;
 		this.dateCreation = dateCreation;
 		
-		System.out.println("Création du repertoire \"" + nom + "\" : " +auteur+", "+dateCreation+"...");
+		System.out.println("Création du repertoire \"" + nom + "\" : "+nomRepParent+", "+auteur+", "+dateCreation+"...");
 	}
 	
 	
