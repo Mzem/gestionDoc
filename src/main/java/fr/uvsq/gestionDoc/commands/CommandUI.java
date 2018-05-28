@@ -100,6 +100,26 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("rmf"))
+        {
+			try {
+				RmfCommand Rmf = new RmfCommand(entreeSplit[1]);
+				return Rmf;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande rmf : veuillez spécifier le nom du fichier à supprimer de ce répertoire.\n").reset());
+				return null;
+			}
+		}
+		else if (entreeSplit[0].equals("rmdir"))
+        {
+			try {
+				RmdirCommand Rmd = new RmdirCommand(entreeSplit[1]);
+				return Rmd;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande rmdir : veuillez spécifier le nom du sous-répertoire à supprimer de ce répertoire.\n").reset());
+				return null;
+			}
+		}
 		else 
 			return null;
 	}

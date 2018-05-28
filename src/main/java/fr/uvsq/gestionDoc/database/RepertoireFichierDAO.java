@@ -64,7 +64,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
             psDelete.setString(1, nomRepertoire);
             psDelete.setString(2, nomFichier);
             psDelete.executeUpdate();
-			System.out.println("Suppression du fichier \""+nomFichier+"\" du repertoire\""+nomRepertoire+"...");
+			System.out.println("Suppression du fichier \""+nomFichier+"\" du repertoire \""+nomRepertoire+"\"...");
 		} catch (SQLException sqle) {
             Database.printSQLException(sqle);
             return false;
@@ -180,5 +180,45 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 			return existeDansSousRep(repFils, nomFichier);
 		
 		return false;
+	}
+
+	public ArrayList<String> findFichiersFils (String repertoire)
+	{
+		ArrayList<String> fichiersFils = new ArrayList<String>();
+		
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM REPERTOIREFICHIER WHERE nomRep = '"+repertoire+"'");
+			
+			while(rs.next()) {
+				fichiersFils.add(rs.getString(2)); 
+			}
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return null;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+		return fichiersFils;
 	}
 }
