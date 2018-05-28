@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.Properties;
+import java.util.ArrayList;
 
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -51,7 +52,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 
 	public boolean delete(String nomRepertoireFichier) 
 	{	
-		return true;
+		return false;
 	}
 	
 	public boolean delete(String nomRepertoire, String nomFichier) 
@@ -89,7 +90,7 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
 	public RepertoireFichier find(String id) {
 		return null;
 	}
-	
+
 	public void show (String cheminActuel) {
 		Statement sSelect = null;
 		ResultSet rs = null;
@@ -166,5 +167,18 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
                 Database.printSQLException(sqle);
             }
 		}
+	}
+	
+	public boolean existeDansSousRep(String nomRepertoire, String nomFichier) 
+	{
+		if (this.existe(nomRepertoire, nomFichier))
+			return true;
+		
+		RepertoireDAO repDAO = DAOFactory.getRepertoireDAO();
+		ArrayList<String> repsFils = repDAO.findFils(nomRepertoire);
+		for (String repFils : repsFils)
+			return existeDansSousRep(repFils, nomFichier);
+		
+		return false;
 	}
 }

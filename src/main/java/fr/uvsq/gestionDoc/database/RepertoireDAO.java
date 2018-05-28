@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.Properties;
+import java.util.ArrayList;
 
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -200,5 +201,45 @@ public class RepertoireDAO extends DAO<Repertoire>
                 Database.printSQLException(sqle);
             }
 		}
+	}
+	
+	public ArrayList<String> findFils (String repertoire) 
+	{
+		ArrayList<String> repsFils = new ArrayList<String>();
+		
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM REPERTOIRE WHERE nomRepParent = '"+repertoire+"'");
+			
+			while(rs.next()) {
+				repsFils.add(rs.getString(1)); 
+			}
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return null;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+		return repsFils;
 	}
 }

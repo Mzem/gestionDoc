@@ -90,6 +90,16 @@ public class CommandUI
 				return null;
 			}
 		}
+		else if (entreeSplit[0].equals("addf"))
+        {
+			try {
+				AddfCommand A = new AddfCommand(entreeSplit[1]);
+				return A;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println(ansi().fgBrightRed().a("\n----- Erreur ----- : commande addf : veuillez spécifier le nom du fichier à ajouter à ce répertoire.\n").reset());
+				return null;
+			}
+		}
 		else 
 			return null;
 	}

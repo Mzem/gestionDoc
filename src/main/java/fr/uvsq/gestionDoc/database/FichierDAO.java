@@ -131,7 +131,7 @@ public class FichierDAO extends DAO<Fichier>
 			sSelect = Database.getInstance().createStatement();
 			rs = sSelect.executeQuery(sString.toString());
 			
-			System.out.println(ansi().fgBrightCyan().a("\t"+String.format("%20s", "Fichier")+" : "+String.format("%10s", "Nom")+" | "+String.format("%10s", "Extension")+" | "+String.format("%12s", "Taille (ko)")+" | "+String.format("%15s", "Auteur")+" | "+String.format("%14s", "Date d'ajout")+" | "+String.format("%15s", "Type")).reset());
+			System.out.println(ansi().bold().a("\t"+String.format("%20s", "Fichier")+" : "+String.format("%10s", "Nom")+" | "+String.format("%10s", "Extension")+" | "+String.format("%12s", "Taille (ko)")+" | "+String.format("%15s", "Auteur")+" | "+String.format("%14s", "Date d'ajout")+" | "+String.format("%15s", "Type")).reset());
 			while(rs.next()) {
 				System.out.println("\t"+String.format("%20s", rs.getString(1))+" : "+String.format("%10s", rs.getString(2))+" | "+String.format("%10s", rs.getString(3))+" | "+String.format("%12s", rs.getDouble(4))+" | "+String.format("%15s", rs.getString(5))+" | "+String.format("%14s", rs.getString(6))+" | "+String.format("%15s", rs.getString(7))); 
 			}

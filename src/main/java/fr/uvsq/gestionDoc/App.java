@@ -25,7 +25,7 @@ public class App
         CommandUI CUI = new CommandUI();
 		while(true)
 		{
-			System.out.println(ansi().fgBrightBlue().a("\n"+Repertoire.getActuel()+"  >>>>  Entrez une commande :").reset());
+			System.out.println(ansi().fgBrightBlue().bold().a("\n"+Repertoire.getActuel()).reset().fgBrightCyan().a("  >>>>  Entrez une commande :").reset());
 			CUI.affiche(CUI.nextCommand());
 		}
     }
