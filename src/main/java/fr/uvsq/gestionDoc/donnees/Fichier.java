@@ -23,7 +23,7 @@ public class Fichier
 	
 	/**
 	* Construction d'un fichier quelconque
-	* @param les attributs d'un fichier
+	* Paramètres : les attributs d'un fichier
 	*/
 	public Fichier(String nom, String nomPropre, String extension, double taille, String auteur, String dateAjout, String type)
 	{

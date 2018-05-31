@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande d'ajout de fichiers à la BD.
+ */
 public class AddCommand implements Command 
 {
 	private String cheminFichier;

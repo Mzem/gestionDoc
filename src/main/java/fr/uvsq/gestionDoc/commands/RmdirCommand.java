@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande de suppression d'un répertoire de la BD.
+ */
 public class RmdirCommand implements Command 
 {
 	private String nomRepertoire;

@@ -6,6 +6,9 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande de retrait d'un fichier d'un répertoire.
+ */
 public class RmfCommand implements Command 
 {
 	private String nomRepertoire;

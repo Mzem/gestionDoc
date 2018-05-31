@@ -2,6 +2,9 @@ package fr.uvsq.gestionDoc.database;
 
 import java.sql.Connection;
 
+/**
+ * Classe de fabrique d'instance particulière DAO.
+ */
 public class DAOFactory 
 {
 	protected static final Connection cnx = Database.getInstance();   

@@ -6,6 +6,10 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+
+/**
+ * Commande d'affichage du contenu du répertoire courant. 
+ */
 public class LsCommand implements Command 
 {
 	private static final RepertoireDAO repDAO = DAOFactory.getRepertoireDAO();

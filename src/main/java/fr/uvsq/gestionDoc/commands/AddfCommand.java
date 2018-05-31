@@ -6,6 +6,9 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande d'ajout de fichier à un répertoire de la BD 
+ */
 public class AddfCommand implements Command 
 {
 	private String nomRepertoire;

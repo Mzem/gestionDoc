@@ -2,7 +2,7 @@ package fr.uvsq.gestionDoc.donnees;
 
 /**
  * <p>
- * Classe qui modélise les données d'un fichier quelconque et qui gère l'upload à l'INBOX de l'application.</p>
+ * Classe qui modélise les données d'un lien répertoire - fichier.</p>
  */
 public class RepertoireFichier
 {
@@ -11,7 +11,7 @@ public class RepertoireFichier
 	
 	/**
 	* Construction d'un fichier quelconque
-	* @param les attributs d'un fichier
+	* Paramètres : les attributs d'un fichier
 	*/
 	public RepertoireFichier(String nomR, String nomF)
 	{

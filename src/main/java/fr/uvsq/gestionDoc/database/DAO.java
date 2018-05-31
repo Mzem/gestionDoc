@@ -2,6 +2,9 @@ package fr.uvsq.gestionDoc.database;
 
 import java.sql.Connection;
 
+/**
+ * Classe abstraite qui gère l'interaction entre les données et la BD.
+ */
 public abstract class DAO<T> 
 {
 	protected Connection cnx = null;

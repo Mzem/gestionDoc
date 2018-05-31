@@ -6,6 +6,9 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande d'affichage des fichiers de la base de données.
+ */
 public class ShowCommand implements Command 
 {
 	String extension = null;

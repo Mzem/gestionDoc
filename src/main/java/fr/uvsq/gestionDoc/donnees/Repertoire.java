@@ -1,5 +1,9 @@
 package fr.uvsq.gestionDoc.donnees;
 
+/**
+ * <p>
+ * Classe qui modélise les données d'un répertoire.</p>
+ */
 public class Repertoire
 {
 	protected static String actuel = "INBOX/";
@@ -10,7 +14,7 @@ public class Repertoire
 	
 	/**
 	* Construction d'un repertoire quelconque
-	* @param les attributs d'un repertoire
+	* Paramètres : les attributs d'un repertoire
 	*/
 	public Repertoire(String nom, String nomRepParent, String auteur, String dateCreation)
 	{

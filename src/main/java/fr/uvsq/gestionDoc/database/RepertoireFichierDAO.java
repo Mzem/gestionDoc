@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+
+/**
+ * Classe représentant les opérations d'interaction entre une donnée "RepertoireFichier" et la BD. 
+ */
 public class RepertoireFichierDAO extends DAO<RepertoireFichier> 
 {
 	public RepertoireFichierDAO(Connection cnx) 
@@ -220,5 +224,45 @@ public class RepertoireFichierDAO extends DAO<RepertoireFichier>
             }
 		}
 		return fichiersFils;
+	}
+	
+	public ArrayList<String> findRepertoiresParents (String fichier)
+	{
+		ArrayList<String> repsParents = new ArrayList<String>();
+		
+		Statement sSelect = null;
+		ResultSet rs = null;
+		
+		try {
+			sSelect = Database.getInstance().createStatement();
+			rs = sSelect.executeQuery("SELECT * FROM REPERTOIREFICHIER WHERE nomFic = '"+fichier+"'");
+			
+			while(rs.next()) {
+				repsParents.add(rs.getString(1)); 
+			}
+		} catch (SQLException sqle) {
+            Database.printSQLException(sqle);
+            return null;
+        } finally {
+			//Libération ressources requete
+			try {
+				if (sSelect != null) {
+					sSelect.close();
+					sSelect = null;
+				}
+			} catch (SQLException sqle) {
+				Database.printSQLException(sqle);
+			}
+			// ResultSet
+            try {
+				if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (SQLException sqle) {
+                Database.printSQLException(sqle);
+            }
+		}
+		return repsParents;
 	}
 }

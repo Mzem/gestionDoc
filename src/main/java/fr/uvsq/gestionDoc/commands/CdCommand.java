@@ -6,6 +6,9 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande de navigation entre les hiérarchies de répertoires. 
+ */
 public class CdCommand implements Command 
 {
 	private String nomRepertoire;

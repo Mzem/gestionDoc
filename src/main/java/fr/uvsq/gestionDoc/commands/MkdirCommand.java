@@ -12,6 +12,10 @@ import java.util.Date;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+
+/**
+ * Commande de création d'un répertoire dans la BD.
+ */
 public class MkdirCommand implements Command 
 {
 	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");

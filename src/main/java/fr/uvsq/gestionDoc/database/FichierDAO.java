@@ -14,6 +14,10 @@ import java.util.Properties;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+
+/**
+ * Classe représentant les opérations d'interaction entre une donnée "Fichier" et la BD. 
+ */
 public class FichierDAO extends DAO<Fichier> 
 {
 	public FichierDAO(Connection cnx) 

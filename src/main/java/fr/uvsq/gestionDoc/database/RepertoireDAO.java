@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Classe représentant les opérations d'interaction entre une donnée "Repertoire" et la BD. 
+ */
 public class RepertoireDAO extends DAO<Repertoire> 
 {
 	public RepertoireDAO(Connection cnx) 

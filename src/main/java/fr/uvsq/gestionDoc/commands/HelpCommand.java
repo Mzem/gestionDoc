@@ -6,6 +6,9 @@ import fr.uvsq.gestionDoc.donnees.*;
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
+/**
+ * Commande d'affichage d'aide sur les commandes implémentées.
+ */
 public class HelpCommand implements Command 
 {
 	private String commande;
@@ -14,6 +17,9 @@ public class HelpCommand implements Command
 		commande = c;
 	}
 	
+	/**
+	* Affichage de l'aide complète ou l'aide propre à une commande particulière.
+	*/
 	public void execute() 
 	{
 		if (commande == null || commande.equals("add")) {

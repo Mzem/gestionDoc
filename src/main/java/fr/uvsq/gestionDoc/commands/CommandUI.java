@@ -6,9 +6,7 @@ import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
 /**
- * <p>
- * Classe qui gère l'entrée et l'exécution des commandes (moteur de commandes).</p>
- * <p>
+ * Classe qui gère l'entrée et l'exécution des commandes (moteur de commandes).
  */
 public class CommandUI
 {

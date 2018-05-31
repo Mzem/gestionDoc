@@ -9,6 +9,10 @@ import java.util.Date;
 
 import com.asprise.ocr.Ocr;
 
+/**
+ * <p>
+ * Classe qui gère la fabrique d'une donnée "Fichier" avec extraction des métadonnées.</p>
+ */
 public class FichierFactory
 {
 	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -59,6 +63,8 @@ public class FichierFactory
 					type = "bail";
 				if (s.contains("sujet") || s.contains("Sujet") || s.contains("SUJET"))
 					type = "sujet";
+				else
+					type = "pdf inconnu";
 				//etc
 				ocr.stopEngine();
 				return new Fichier(nomComplet, nomPropre.toString(), extension, taille, auteur, dateAjout, type);
